@@ -19,6 +19,7 @@ List<PostModel> postModel=[];
       
         break;
       default:
+      showDialog(context: context,builder: (context)=>Dialog(child: Text(response.body),));
     }
   }
 }
