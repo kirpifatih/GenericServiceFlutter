@@ -7,19 +7,34 @@ import 'package:http_example/model/post_model.dart';
 
 abstract class JsonPlaceHolderViewModel extends State<JsonPlaceHolder> {
   final baseUrl = "https://jsonplaceholder.typicode.com/";
-List<PostModel> postModel=[];
+
+  List<PostModel> postModel = [];
+  bool isLoading = false;
   Future<void> getPost() async {
+    changeLoading();
     final url = Uri.parse("$baseUrl/post");
     final response = await http.get(url);
     switch (response.statusCode) {
       case HttpStatus.ok:
-      final jsonbody= jsonDecode(response.body);
-      if(jsonbody is List) postModel=jsonbody.map((e) => PostModel.fromJson(e)).toList().cast<PostModel>();
-        
-      
+        final jsonbody = jsonDecode(response.body);
+        if (jsonbody is List)
+          postModel = jsonbody
+              .map((e) => PostModel.fromJson(e))
+              .toList()
+              .cast<PostModel>();
+
         break;
       default:
-      showDialog(context: context,builder: (context)=>Dialog(child: Text(response.body),));
+        showDialog(
+            context: context,
+            builder: (context) => Dialog(
+                  child: Text(response.body),
+                ));
     }
+    changeLoading();
+  }
+
+  void changeLoading() {
+    isLoading = !isLoading;
   }
 }

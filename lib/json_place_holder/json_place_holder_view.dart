@@ -5,7 +5,9 @@ class JsonPlaceHolderView extends JsonPlaceHolderViewModel{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: isLoading? CircularProgressIndicator():Text("Json Place Holder view"),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: (){
         getPost();
       },),
