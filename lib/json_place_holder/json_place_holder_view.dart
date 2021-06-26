@@ -6,11 +6,14 @@ class JsonPlaceHolderView extends JsonPlaceHolderViewModel{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        getPost();
+      },),
       body: ListView.builder(
         itemCount: postModel.length,
         itemBuilder: (context,index)=>Text(postModel[index].title)),
     );
-    
+
   }
 
 }
